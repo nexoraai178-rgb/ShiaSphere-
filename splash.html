@@ -1,59 +1,134 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ShiaSphere</title>
 
 <style>
-body{
+
+*{
 margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
 height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-flex-direction:column;
-background:white;
-font-family:Arial,sans-serif;
+background:linear-gradient(135deg,#ffffff,#d4f8d4);
+overflow:hidden;
+}
+
+.splash-container{
+text-align:center;
+animation:fadeIn 2s ease-in-out;
 }
 
 .logo{
 width:180px;
 height:180px;
+border-radius:50%;
 animation:zoom 2s infinite alternate;
 }
 
-h1{
-color:#2E8B57;
+.app-name{
+font-size:36px;
+font-weight:bold;
+color:#1b5e20;
 margin-top:15px;
 }
 
 .tagline{
-color:#666;
 font-size:16px;
+color:#555;
+margin-top:8px;
+}
+
+.loading-container{
+width:250px;
+height:8px;
+background:#dcdcdc;
+border-radius:20px;
+margin:30px auto;
+overflow:hidden;
+}
+
+.loading-bar{
+height:100%;
+width:0%;
+background:#4CAF50;
+border-radius:20px;
+animation:loading 3s linear forwards;
+}
+
+.loading-text{
+color:#2e7d32;
+font-size:14px;
+margin-top:10px;
 }
 
 @keyframes zoom{
-from{transform:scale(0.8);}
-to{transform:scale(1.1);}
+from{
+transform:scale(0.9);
 }
+to{
+transform:scale(1.08);
+}
+}
+
+@keyframes fadeIn{
+from{
+opacity:0;
+}
+to{
+opacity:1;
+}
+}
+
+@keyframes loading{
+from{
+width:0%;
+}
+to{
+width:100%;
+}
+}
+
 </style>
 </head>
 
 <body>
 
-<img src="logo.png" class="logo">
+<div class="splash-container">
 
-<h1>ShiaSphere</h1>
+<img src="logo.png" alt="ShiaSphere Logo" class="logo">
 
-<p class="tagline">
+<div class="app-name">ShiaSphere</div>
+
+<div class="tagline">
 Learn • Reflect • Grow
-</p>
+</div>
+
+<div class="loading-container">
+<div class="loading-bar"></div>
+</div>
+
+<div class="loading-text">
+Loading...
+</div>
+
+</div>
 
 <script>
+
 setTimeout(function(){
 window.location.href="index.html";
 },3000);
+
 </script>
 
 </body>
