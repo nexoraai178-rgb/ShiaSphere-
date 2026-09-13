@@ -1,76 +1,306 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="google-site-verification" content="bG3I9B0WY3aHBKnLZ50r-nRQuuofaILutP5U3507H3I" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>ShiaSphere</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
-    <body>
 
-<header>
+<body>
+
+<!-- =========================
+     SHIASPHERE OPENING SCREEN
+     ========================= -->
+
+<div id="splash">
+
+    <!-- 🔴 YAHAN APNE SHIASPHERE LOGO KI LINK/FILE NAME LAGAO -->
+    <!-- Example:
+    <img src="YOUR_LOGO_LINK_HERE.png" class="splash-logo" alt="ShiaSphere Logo">
+    -->
 
     <img src="file_0000000000bc82119b5da8ab127eb9b6.png"
- class="home-logo">
+     class="splash-logo"
+     alt="ShiaSphere Logo">
 
     <h1>ShiaSphere</h1>
 
     <p>Learn • Reflect • Grow</p>
+
+</div>
+
+
+<!-- =========================
+     HEADER
+     ========================= -->
+
+<header>
+
+    <!-- 🔴 YAHAN APNE SHIASPHERE LOGO KI LINK/FILE NAME LAGAO -->
+    <!-- Example:
+    <img src="YOUR_LOGO_LINK_HERE.png"
+         class="home-logo"
+         alt="ShiaSphere Logo">
+    -->
+
+    <img src="file_0000000000bc82119b5da8ab127eb9b6.png"
+     class="home-logo"
+     alt="ShiaSphere Logo">
+
+    <h1>ShiaSphere</h1>
+
+    <p>Learn • Reflect • Grow</p>
+
     <button id="themeToggle" class="dark-btn">
-🌙 Dark Mode
+        🌙 Dark Mode
     </button>
 
 </header>
-  <div class="search-box">
-<input type="text" placeholder="Search Duas, Ziyarat...">
-  </div>
 
-    <div class="container">
 
-        <a href="dua.html" class="card">
-            <h2>📖 Duas</h2>
-            <p>Read important duas.</p>
-        </a>
+<!-- =========================
+     SEARCH
+     ========================= -->
 
-        <a href="ziyarat.html" class="card">
-            <h2>🤲 Ziyarat</h2>
-            <p>Access ziyarat collection.</p>
-        </a>
-
-        <a href="karbala-intro.html" class="card">
-            <p>Learn about Karbala.</p>
-        </>
-
-        <a href="ahlulbayt.html" class="card">
-            <h2>🕌 Ahlul Bayt (AS)</h2>
-            <p>Biographies and teachings.</p>
-        </a>
-
-        <a href="quiz.html" class="card">
-            <h2>📝 Quiz</h2>
-            <p>Test your knowledge.</p>
-        </a>
-
-        <a href="about.html" class="card">
-            <h2>ℹ️ About</h2>
-            <p>About ShiaSphere.</p>
-        </a>
-
-    </div>
-
-    <footer>
-        <p>Version 1.0</p>
-        <p>Developed by Mohd Jaun Rizvi</p>
-    </footer>
-  <p>Version 1.0</p>
-<p>Developed by Mohd Jaun Rizvi</p>
-<p>© 2026 ShiaSphere</p>
-<div class="bottom-nav">
-    <a href="index.html">🏠 Home</a>
-    <a href="dua.html">📖 Duas</a>
-    <a href="ziyarat.html">🤲 Ziyarat</a>
-    <a href="quiz.html">📝 Quiz</a>
+<div class="search-box">
+    <input
+        type="text"
+        placeholder="Search Duas, Ziyarat..."
+        id="searchInput"
+    >
 </div>
+
+
+<!-- =========================
+     MAIN CONTENT
+     ========================= -->
+
+<main class="container">
+
+    <!-- DUAS -->
+
+    <a href="dua.html" class="card">
+
+        <div class="card-icon">📖</div>
+
+        <div>
+            <h2>Duas</h2>
+            <p>Read important duas.</p>
+        </div>
+
+    </a>
+
+
+    <!-- ZIYARAT -->
+
+    <a href="ziyarat.html" class="card">
+
+        <div class="card-icon">🤲</div>
+
+        <div>
+            <h2>Ziyarat</h2>
+            <p>Access ziyarat collection.</p>
+        </div>
+
+    </a>
+
+
+    <!-- KARBALA -->
+
+    <a href="karbala-intro.html" class="card">
+
+        <div class="card-icon">🕊️</div>
+
+        <div>
+            <h2>Karbala</h2>
+            <p>Learn about Karbala.</p>
+        </div>
+
+    </a>
+
+
+    <!-- AHLUL BAYT -->
+
+    <a href="ahlulbayt.html" class="card">
+
+        <div class="card-icon">🕌</div>
+
+        <div>
+            <h2>Ahlul Bayt (AS)</h2>
+            <p>Biographies and teachings.</p>
+        </div>
+
+    </a>
+
+
+    <!-- QUIZ -->
+
+    <a href="quiz.html" class="card">
+
+        <div class="card-icon">📝</div>
+
+        <div>
+            <h2>Quiz</h2>
+            <p>Test your knowledge.</p>
+        </div>
+
+    </a>
+
+
+    <!-- ABOUT -->
+
+    <a href="about.html" class="card">
+
+        <div class="card-icon">ℹ️</div>
+
+        <div>
+            <h2>About</h2>
+            <p>About ShiaSphere.</p>
+        </div>
+
+    </a>
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+     ========================= -->
+
+<footer>
+
+    <p>Version 1.0</p>
+
+    <p>Developed by Mohd Jaun Rizvi</p>
+
+    <p>© 2026 ShiaSphere</p>
+
+</footer>
+
+
+<!-- =========================
+     BOTTOM NAVIGATION
+     ========================= -->
+
+<nav class="bottom-nav">
+
+    <a href="index.html">
+        🏠
+        <span>Home</span>
+    </a>
+
+    <a href="dua.html">
+        📖
+        <span>Duas</span>
+    </a>
+
+    <a href="ziyarat.html">
+        🤲
+        <span>Ziyarat</span>
+    </a>
+
+    <a href="quiz.html">
+        📝
+        <span>Quiz</span>
+    </a>
+
+</nav>
+
+
+<!-- =========================
+     JAVASCRIPT
+     ========================= -->
+
+<script>
+
+/* =========================
+   SPLASH SCREEN
+   ========================= */
+
+window.addEventListener("load", function () {
+
+    setTimeout(function () {
+
+        const splash = document.getElementById("splash");
+
+        if (splash) {
+            splash.classList.add("hide");
+        }
+
+    }, 2200);
+
+});
+
+
+/* =========================
+   DARK MODE
+   ========================= */
+
+const themeToggle = document.getElementById("themeToggle");
+
+if (themeToggle) {
+
+    themeToggle.addEventListener("click", function () {
+
+        document.body.classList.toggle("dark-mode");
+
+        if (document.body.classList.contains("dark-mode")) {
+
+            themeToggle.innerHTML = "☀️ Light Mode";
+
+        } else {
+
+            themeToggle.innerHTML = "🌙 Dark Mode";
+
+        }
+
+    });
+
+}
+
+
+/* =========================
+   SEARCH
+   ========================= */
+
+const searchInput = document.getElementById("searchInput");
+
+if (searchInput) {
+
+    searchInput.addEventListener("input", function () {
+
+        const searchValue =
+            searchInput.value.toLowerCase().trim();
+
+        const cards =
+            document.querySelectorAll(".card");
+
+        cards.forEach(function (card) {
+
+            const text =
+                card.innerText.toLowerCase();
+
+            if (text.includes(searchValue)) {
+
+                card.style.display = "flex";
+
+            } else {
+
+                card.style.display = "none";
+
+            }
+
+        });
+
+    });
+
+}
+
+</script>
+
 </body>
 </html>
+      
