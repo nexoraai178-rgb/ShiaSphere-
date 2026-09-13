@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShiaSphere</title>
+
+<style>
+body{
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+background:white;
+font-family:Arial,sans-serif;
+}
+
+.logo{
+width:180px;
+height:180px;
+animation:zoom 2s infinite alternate;
+}
+
+h1{
+color:#2E8B57;
+margin-top:15px;
+}
+
+.tagline{
+color:#666;
+font-size:16px;
+}
+
+@keyframes zoom{
+from{transform:scale(0.8);}
+to{transform:scale(1.1);}
+}
+</style>
+</head>
+
+<body>
+
+<img src="logo.png" class="logo">
+
+<h1>ShiaSphere</h1>
+
+<p class="tagline">
+Learn • Reflect • Grow
+</p>
+
+<script>
+setTimeout(function(){
+window.location.href="index.html";
+},3000);
+</script>
+
+</body>
+</html>
