@@ -104,3 +104,37 @@ font-weight:bold;
     margin:20px auto;
     border-radius:15px;
 }
+.dark-btn{
+    background:#2E8B57;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:10px;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+.dark-mode{
+    background:#121212;
+    color:white;
+}
+
+.dark-mode header{
+    background:#1b1b1b;
+    color:white;
+}
+
+.dark-mode .card{
+    background:#222;
+    color:white;
+    border:1px solid #444;
+}
+
+.dark-mode a{
+    color:#90EE90;
+}
+
+.dark-mode button{
+    background:#2E8B57;
+    color:white;
+}
