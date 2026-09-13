@@ -91,3 +91,9 @@ font-weight:bold;
 .container{
     padding-bottom:80px;
 }
+.home-logo{
+    width:120px;
+    height:120px;
+    display:block;
+    margin:10px auto;
+}
