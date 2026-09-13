@@ -582,3 +582,20 @@ header .home-logo {
 
     object-fit: contain !important;
 }
+/* =========================
+   VERY LIGHT SPLASH WATERMARK
+   ========================= */
+
+#splash {
+    opacity: 0.12 !important;
+    pointer-events: none !important;
+}
+
+#splash .splash-logo {
+    opacity: 0.12 !important;
+}
+
+#splash h1,
+#splash p {
+    opacity: 0.08 !important;
+}
