@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="bG3I9B0WY3aHBKnLZ50r-nRQuuofaILutP5U3507H3I">
+<title>ShiaSphere</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="hero">
+  <img src="file_0000000000bc82119b5da8ab127eb9b6.png" class="home-logo" alt="ShiaSphere Logo">
+  <h1>ShiaSphere</h1>
+  <p>Learn • Reflect • Grow</p>
+  <button id="themeToggle" class="dark-btn">☀️ Light Mode</button>
+</header>
+
+<main>
+  <div class="search-box">
+    <span>⌕</span>
+    <input type="text" placeholder="Search Duas, Ziyarat..." aria-label="Search">
+  </div>
+
+  <section class="section-block">
+    <div class="section-heading"><i></i><h2>Daily Worship</h2><i></i></div>
+    <div class="container">
+      <a href="every-day-recitations.html" class="card"><b>📿</b><div><h3>Every Day Recitations</h3><p>Daily recitations and remembrance.</p></div><em>›</em></a>
+      <a href="taqibaat-namaz.html" class="card"><b>🤲</b><div><h3>Taqibaat-e-Namaz</h3><p>Recitations after Namaz.</p></div><em>›</em></a>
+      <a href="quran.html" class="card"><b>📖</b><div><h3>Holy Quran</h3><p>Explore Quranic content.</p></div><em>›</em></a>
+      <a href="namaz.html" class="card"><b>🕌</b><div><h3>Namaz</h3><p>Namaz information and guidance.</p></div><em>›</em></a>
+    </div>
+  </section>
+
+  <section class="section-block">
+    <div class="section-heading"><i></i><h2>Shia Collections</h2><i></i></div>
+    <div class="container">
+      <a href="dua.html" class="card"><b>📜</b><div><h3>Duas</h3><p>Read important duas.</p></div><em>›</em></a>
+      <a href="ziyarat.html" class="card"><b>🤲</b><div><h3>Ziyaarat</h3><p>Access ziyarat collection.</p></div><em>›</em></a>
+      <a href="amaal.html" class="card"><b>📿</b><div><h3>Aamaal</h3><p>Daily and special aamaal.</p></div><em>›</em></a>
+      <a href="munajaat.html" class="card"><b>🤍</b><div><h3>Munajaat</h3><p>Collection of munajaat.</p></div><em>›</em></a>
+      <a href="baqiyaat-us-saalehaat.html" class="card"><b>✨</b><div><h3>Baqiyaat us Saalehaat</h3><p>Recommended recitations.</p></div><em>›</em></a>
+    </div>
+  </section>
+
+  <section class="section-block">
+    <div class="section-heading"><i></i><h2>Tools &amp; Time</h2><i></i></div>
+    <div class="container">
+      <a href="tasbeeh.html" class="card"><b>📿</b><div><h3>Tasbeeh</h3><p>Digital tasbeeh.</p></div><em>›</em></a>
+      <a href="prayer-time.html" class="card"><b>🕐</b><div><h3>Prayer Time</h3><p>Prayer timing section.</p></div><em>›</em></a>
+      <a href="calendar.html" class="card"><b>📅</b><div><h3>Calendar</h3><p>Islamic calendar section.</p></div><em>›</em></a>
+      <a href="qaza.html" class="card"><b>📊</b><div><h3>Qaza</h3><p>Qaza tracking section.</p></div><em>›</em></a>
+      <a href="favourite.html" class="card"><b>⭐</b><div><h3>Favourite</h3><p>Your saved content.</p></div><em>›</em></a>
+    </div>
+  </section>
+
+  <section class="section-block">
+    <div class="section-heading"><i></i><h2>ShiaSphere</h2><i></i></div>
+    <div class="container">
+      <a href="karbala-intro.html" class="card"><b>🏴</b><div><h3>Karbala</h3><p>Learn about Karbala.</p></div><em>›</em></a>
+      <a href="ahlulbayt.html" class="card"><b>🕌</b><div><h3>Ahlul Bayt (AS)</h3><p>Biographies and teachings.</p></div><em>›</em></a>
+      <a href="quiz.html" class="card"><b>📝</b><div><h3>Quiz</h3><p>Test your knowledge.</p></div><em>›</em></a>
+      <a href="about.html" class="card"><b>ℹ️</b><div><h3>About</h3><p>About ShiaSphere.</p></div><em>›</em></a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>Version 1.0</p>
+  <p>Developed by Mohd Jaun Rizvi</p>
+  <p>© 2026 ShiaSphere</p>
+</footer>
+
+<nav class="bottom-nav">
+  <a href="index.html" class="active">🏠<span>Home</span></a>
+  <a href="dua.html">📖<span>Duas</span></a>
+  <a href="ziyarat.html">🤲<span>Ziyarat</span></a>
+  <a href="quiz.html">📝<span>Quiz</span></a>
+</nav>
+
+<script>
+const btn=document.getElementById("themeToggle");
+btn.onclick=()=>{
+ document.body.classList.toggle("light-mode");
+ btn.textContent=document.body.classList.contains("light-mode")?"🌙 Dark Mode":"☀️ Light Mode";
+};
+</script>
+</body>
+</html>
