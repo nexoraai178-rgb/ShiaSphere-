@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendar - ShiaSphere</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.page{padding:20px 16px 110px;max-width:850px;margin:auto}.back{color:#f0d98d;text-decoration:none}
+.panel{background:linear-gradient(145deg,rgba(19,43,37,.96),rgba(7,17,15,.96));border:1px solid var(--border);border-radius:21px;padding:18px;margin:16px 0}
+.controls{display:flex;gap:10px;flex-wrap:wrap}.controls button{margin:0}.month-title{text-align:center;color:var(--gold-light);font-size:22px;margin:8px 0 18px}
+.calendar{overflow-x:auto}.grid{min-width:650px;display:grid;grid-template-columns:repeat(7,1fr);gap:7px}.dow{color:var(--gold-light);text-align:center;font-size:12px;padding:8px}
+.day{min-height:95px;padding:9px;border:1px solid var(--border);border-radius:12px;background:rgba(7,17,15,.7)}.day b{color:var(--gold-light);font-size:15px}.day span{display:block;color:var(--muted);font-size:12px;margin-top:7px}.day small{display:block;color:#c9c1a8;margin-top:6px;font-size:11px}
+.status{color:var(--muted);font-size:13px;line-height:1.6}.location{color:#d8b65d}
+</style>
+</head>
+<body>
+<header class="hero"><img src="file_0000000000bc82119b5da8ab127eb9b6.png" class="home-logo" alt="ShiaSphere Logo"><h1>📅 Calendar</h1><p>Live-location Islamic calendar</p></header>
+<main class="page">
+<a class="back" href="index.html">← Back to ShiaSphere</a>
+<div class="panel">
+<p id="status" class="status">Allow location to load the calendar for your current coordinates.</p>
+<button id="locBtn">Allow Location &amp; Load Calendar</button>
+</div>
+<div id="calendarPanel" class="panel" hidden>
+<div class="controls"><button id="prev">← Previous</button><button id="today">Today</button><button id="next">Next →</button></div>
+<div id="title" class="month-title"></div>
+<div class="calendar"><div id="grid" class="grid"></div></div>
+<p class="status" style="margin-top:15px">Hijri dates are supplied by AlAdhan's calendar service. Local moon-sighting conventions can differ.</p>
+</div>
+</main>
+<script>
+let lat=null,lon=null,view=new Date(),cache={};
+const $=id=>document.getElementById(id);
+const names=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+function start(){if(!navigator.geolocation){$("status").textContent="Location is not supported by this browser.";return;}
+$("locBtn").disabled=true;$("locBtn").textContent="Requesting location…";
+navigator.geolocation.getCurrentPosition(p=>{lat=p.coords.latitude;lon=p.coords.longitude;$("status").innerHTML=`<span class="location">Location received.</span> Loading calendar…`; $("calendarPanel").hidden=false;load();},()=>{$("locBtn").disabled=false;$("locBtn").textContent="Try Location Again";$("status").textContent="Please allow location access to load the calendar."},{enableHighAccuracy:true,maximumAge:0,timeout:15000});}
+async function load(){
+ const y=view.getFullYear(),m=view.getMonth()+1,key=`${y}-${m}-${lat}-${lon}`;
+ $("title").textContent=view.toLocaleString(undefined,{month:"long",year:"numeric"});
+ $("grid").innerHTML=Array(7).fill(0).map((_,i)=>`<div class="dow">${names[i].slice(0,3)}</div>`).join("");
+ try{
+  let data=cache[key];
+  if(!data){const url=`https://api.aladhan.com/v1/calendar/${y}/${m}?latitude=${lat}&longitude=${lon}&method=0`;const r=await fetch(url);if(!r.ok)throw 0;const j=await r.json();data=j.data;cache[key]=data;}
+  const first=new Date(y,m-1,1).getDay(),days=new Date(y,m,0).getDate();
+  for(let i=0;i<first;i++)$("grid").insertAdjacentHTML("beforeend","<div></div>");
+  for(let d=1;d<=days;d++){const item=data[d-1],h=item?.date?.hijri;const today=new Date();const isToday=today.getFullYear()===y&&today.getMonth()===m-1&&today.getDate()===d;
+   $("grid").insertAdjacentHTML("beforeend",`<div class="day" ${isToday?'style="border-color:rgba(216,182,93,.8)"':''}><b>${d}${isToday?" • Today":""}</b><span>${h?.day||"—"} ${h?.month?.en||""}</span><small>${h?.designation||""}</small></div>`);}
+ }catch(e){$("status").textContent="Calendar could not be loaded. Please check your internet connection and try again.";}
+}
+$("locBtn").addEventListener("click",start);$("prev").addEventListener("click",()=>{view.setMonth(view.getMonth()-1);load()});$("next").addEventListener("click",()=>{view.setMonth(view.getMonth()+1);load()});$("today").addEventListener("click",()=>{view=new Date();load()});
+</script>
+</body>
+</html>
