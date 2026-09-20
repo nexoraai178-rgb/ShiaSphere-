@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prayer Time - ShiaSphere</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.page{padding:20px 16px 110px;max-width:760px;margin:auto}
+.back{display:inline-block;color:#f0d98d;text-decoration:none;margin-bottom:18px}
+.location-box,.prayer-card,.next-box{background:linear-gradient(145deg,rgba(19,43,37,.96),rgba(7,17,15,.96));border:1px solid var(--border);border-radius:21px;padding:20px;margin-bottom:16px}
+.location-box h2,.next-box h2{color:var(--gold-light);font-size:19px;margin-bottom:8px}
+.status{color:var(--muted);font-size:13px;line-height:1.6}
+.prayers{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.prayer-card{margin:0;padding:17px}.prayer-card strong{display:block;color:var(--gold-light);font-size:16px}.prayer-card span{display:block;margin-top:8px;font-size:25px;font-weight:700}.prayer-card small{color:var(--muted)}
+.next-box{text-align:center}.next-name{font-size:22px;color:var(--gold-light)}.countdown{font-size:31px;font-weight:700;margin-top:8px}
+.loc-btn{width:100%;margin-top:14px}
+@media(max-width:420px){.prayers{grid-template-columns:1fr}.countdown{font-size:27px}}
+</style>
+</head>
+<body>
+<header class="hero">
+<img src="file_0000000000bc82119b5da8ab127eb9b6.png" class="home-logo" alt="ShiaSphere Logo">
+<h1>🕐 Prayer Time</h1><p>Live location based prayer timings</p>
+</header>
+<main class="page">
+<a class="back" href="index.html">← Back to ShiaSphere</a>
+<div class="location-box">
+<h2>📍 Your Location</h2>
+<p id="locationText" class="status">Location permission is required before prayer times can be shown.</p>
+<button id="locBtn" class="loc-btn">Allow Location &amp; Show Prayer Times</button>
+</div>
+<div id="content" hidden>
+<div class="next-box">
+<h2>Next Prayer</h2>
+<div id="nextName" class="next-name">—</div>
+<div id="countdown" class="countdown">--:--:--</div>
+</div>
+<div id="prayers" class="prayers"></div>
+<div class="location-box">
+<p id="updated" class="status"></p>
+<p class="status">Calculation method: Shia Ithna-Ashari (Jafari), AlAdhan.</p>
+</div>
+</div>
+</main>
+<script>
+const prayers=["Fajr","Sunrise","Dhuhr","Asr","Maghrib","Isha"];
+let currentTimes=null, timer=null, watchId=null;
+const $=id=>document.getElementById(id);
+function dateKey(d=new Date()){return d.getDate().toString().padStart(2,"0")+"-"+(d.getMonth()+1).toString().padStart(2,"0")+"-"+d.getFullYear();}
+function cleanTime(v){return (v||"").split(" ")[0];}
+function mins(t){const [h,m]=t.split(":").map(Number);return h*60+m;}
+function render(data){
+ currentTimes=data.timings;
+ $("prayers").innerHTML=prayers.map(p=>`<div class="prayer-card"><strong>${p}</strong><span>${cleanTime(data.timings[p])}</span><small>${p==="Sunrise"?"Sunrise":"Prayer time"}</small></div>`).join("");
+ $("locationText").textContent=`Live location: ${data.meta.latitude.toFixed(5)}, ${data.meta.longitude.toFixed(5)}`;
+ $("updated").textContent=`Updated: ${new Date().toLocaleString()}`;
+ $("content").hidden=false;
+ updateNext();
+}
+function updateNext(){
+ if(!currentTimes)return;
+ const now=new Date(), nowMin=now.getHours()*60+now.getMinutes()+now.getSeconds()/60;
+ let next=null, target=null;
+ for(const p of ["Fajr","Dhuhr","Asr","Maghrib","Isha"]){
+   const t=cleanTime(currentTimes[p]); if(!t)continue;
+   const m=mins(t); if(m>nowMin){next=p;target=new Date(now);target.setHours(Math.floor(m/60),m%60,0,0);break;}
+ }
+ if(!next){
+   next="Fajr";const t=cleanTime(currentTimes.Fajr),m=mins(t);
+   target=new Date(now.getTime()+86400000);target.setHours(Math.floor(m/60),m%60,0,0);
+ }
+ let diff=Math.max(0,target-new Date()),s=Math.floor(diff/1000);
+ $("nextName").textContent=next;
+ $("countdown").textContent=[Math.floor(s/3600),Math.floor(s%3600/60),s%60].map(x=>String(x).padStart(2,"0")).join(":");
+}
+async function load(lat,lon){
+ $("locationText").textContent="Location received. Loading prayer times…";
+ const url=`https://api.aladhan.com/v1/timings/${dateKey()}?latitude=${encodeURIComponent(lat)}&longitude=${encodeURIComponent(lon)}&method=0`;
+ try{
+   const r=await fetch(url); if(!r.ok)throw new Error("API error");
+   const j=await r.json(); if(j.code!==200)throw new Error("Timing unavailable");
+   render({timings:j.data.timings,meta:{latitude:lat,longitude:lon}});
+ }catch(e){$("locationText").textContent="Prayer times could not be loaded. Please check your internet connection and try again.";}
+}
+function startLocation(){
+ if(!navigator.geolocation){$("locationText").textContent="This browser does not support location access.";return;}
+ $("locBtn").disabled=true;$("locBtn").textContent="Requesting location…";
+ const ok=pos=>load(pos.coords.latitude,pos.coords.longitude);
+ const err=()=>{$("locBtn").disabled=false;$("locBtn").textContent="Try Location Again";$("locationText").textContent="Location access was not granted. Please allow location permission to continue.";};
+ navigator.geolocation.getCurrentPosition(ok,err,{enableHighAccuracy:true,maximumAge:0,timeout:15000});
+ watchId=navigator.geolocation.watchPosition(pos=>load(pos.coords.latitude,pos.coords.longitude),()=>{}, {enableHighAccuracy:true,maximumAge:60000,timeout:20000});
+}
+$("locBtn").addEventListener("click",startLocation);
+timer=setInterval(updateNext,1000);
+</script>
+</body>
+</html>
