@@ -1,0 +1,2049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Prayer Time • ShiaSphere</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  background:#03120f;
+  color:#f5f5f5;
+  font-family:Arial,sans-serif;
+}
+
+.prayer-page{
+  max-width:850px;
+  margin:auto;
+  padding:20px;
+  padding-bottom:40px;
+}
+
+.back-btn{
+  display:inline-block;
+  text-decoration:none;
+  color:#fff;
+  background:#123d35;
+  border:1px solid #8d7b35;
+  padding:10px 16px;
+  border-radius:12px;
+  margin-bottom:20px;
+}
+
+h1{
+  text-align:center;
+  margin:10px 0 5px;
+  color:#d7bd55;
+}
+
+.subtitle{
+  text-align:center;
+  color:#b9c8c3;
+  margin-bottom:25px;
+}
+
+.box{
+  background:#0b2822;
+  border:1px solid #6e6738;
+  border-radius:24px;
+  padding:20px;
+  margin-bottom:18px;
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+
+.box h2{
+  margin-top:0;
+  color:#d7bd55;
+}
+
+.status{
+  color:#c8d3cf;
+  line-height:1.6;
+}
+
+button{
+  border:none;
+  border-radius:14px;
+  padding:13px 18px;
+  margin:6px 5px 6px 0;
+  font-size:15px;
+  font-weight:bold;
+  cursor:pointer;
+  background:#155247;
+  color:white;
+  border:1px solid #a18d3b;
+}
+
+button:hover{
+  opacity:.9;
+}
+
+.success{
+  color:#70e6ad;
+}
+
+.warning{
+  color:#ffca70;
+}
+
+.error{
+  color:#ff7777;
+}
+
+.prayer-list{
+  margin-top:15px;
+}
+
+.prayer-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px;
+  margin:8px 0;
+  background:#071c18;
+  border:1px solid #29473f;
+  border-radius:15px;
+}
+
+.prayer-name{
+  font-weight:bold;
+  font-size:17px;
+}
+
+.prayer-time{
+  color:#e0c65d;
+  font-weight:bold;
+  font-size:17px;
+}
+
+.next-box{
+  margin-top:18px;
+  text-align:center;
+  background:linear-gradient(135deg,#123e35,#09221d);
+  border:1px solid #a18d3b;
+  border-radius:20px;
+  padding:20px;
+}
+
+.next-title{
+  color:#bfcac6;
+}
+
+.next-name{
+  color:#e0c65d;
+  font-size:22px;
+  font-weight:bold;
+  margin:8px 0;
+}
+
+.countdown{
+  font-size:18px;
+  color:#fff;
+}
+
+.small{
+  font-size:13px;
+  color:#9eafaa;
+  line-height:1.6;
+}
+
+audio{
+  width:100%;
+  margin-top:10px;
+}
+
+.location-name{
+  color:#e0c65d;
+  font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<main class="prayer-page">
+
+<a href="index.html" class="back-btn">← Home</a>
+
+<h1>🕌 Prayer Time</h1>
+
+<p class="subtitle">
+Shia Ithna-Ashari • Live Local Namaz Timings
+</p>
+
+
+<!-- LOCATION -->
+<section class="box">
+
+<h2>📍 Location Access</h2>
+
+<p id="locationStatus" class="status">
+Location permission dene ke liye neeche button dabayein.
+</p>
+
+<button id="locationButton">
+📍 Allow Location
+</button>
+
+<p id="locationInfo" class="small"></p>
+
+</section>
+
+
+<!-- PRAYER TIMES -->
+<section class="box">
+
+<h2>🕐 Today's Namaz & Azaan Time</h2>
+
+<p id="dateText" class="status">
+Location ka wait ho raha hai...
+</p>
+
+<div id="prayerList" class="prayer-list">
+
+<div class="prayer-row">
+<span class="prayer-name">Fajr</span>
+<span class="prayer-time">—</span>
+</div>
+
+<div class="prayer-row">
+<span class="prayer-name">Sunrise</span>
+<span class="prayer-time">—</span>
+</div>
+
+<div class="prayer-row">
+<span class="prayer-name">Dhuhr</span>
+<span class="prayer-time">—</span>
+</div>
+
+<div class="prayer-row">
+<span class="prayer-name">Asr</span>
+<span class="prayer-time">—</span>
+</div>
+
+<div class="prayer-row">
+<span class="prayer-name">Maghrib</span>
+<span class="prayer-time">—</span>
+</div>
+
+<div class="prayer-row">
+<span class="prayer-name">Isha</span>
+<span class="prayer-time">—</span>
+</div>
+
+</div>
+
+
+<div class="next-box">
+
+<div class="next-title">
+🔊 Next Azaan
+</div>
+
+<div id="nextPrayer" class="next-name">
+—
+</div>
+
+<div id="nextCountdown" class="countdown">
+Countdown: —
+</div>
+
+</div>
+
+</section>
+
+
+<!-- AZAAN -->
+<section class="box">
+
+<h2>🔊 Shia Azaan</h2>
+
+<p class="status">
+Location access ke baad exact prayer/Azaan timings upar show hongi.
+Automatic Azaan ke liye pehle <b>Allow Azaan</b> dabana zaroori hai.
+</p>
+
+<button id="enableAzaan">
+🔊 Allow Azaan
+</button>
+
+<button id="testAzaan">
+▶ Test Azaan
+</button>
+
+<p id="audioStatus" class="status">
+Azaan disabled.
+</p>
+
+<audio id="azaanAudio" preload="auto" controls>
+<source src="shia_azan.mp3" type="audio/mpeg">
+Your browser does not support audio.
+</audio>
+
+<p class="small">
+Automatic Azaan ke liye page/tab ko open rakhein. Browser ya phone
+background mein audio ko block kar sakta hai.
+</p>
+
+</section>
+
+</main>
+
+
+<script>
+
+/* ==============================
+   ELEMENTS
+============================== */
+
+const locationStatus =
+document.getElementById("locationStatus");
+
+const locationButton =
+document.getElementById("locationButton");
+
+const locationInfo =
+document.getElementById("locationInfo");
+
+const dateText =
+document.getElementById("dateText");
+
+const prayerList =
+document.getElementById("prayerList");
+
+const nextPrayer =
+document.getElementById("nextPrayer");
+
+const nextCountdown =
+document.getElementById("nextCountdown");
+
+const enableAzaan =
+document.getElementById("enableAzaan");
+
+const testAzaan =
+document.getElementById("testAzaan");
+
+const audioStatus =
+document.getElementById("audioStatus");
+
+const audio =
+document.getElementById("azaanAudio");
+
+
+/* ==============================
+   VARIABLES
+============================== */
+
+let prayerTimes = null;
+
+let azaanEnabled = false;
+
+let playedAzaan = {};
+
+
+/* ==============================
+   DATE
+============================== */
+
+function getApiDate(){
+
+    const now = new Date();
+
+    const day =
+    String(now.getDate()).padStart(2,"0");
+
+    const month =
+    String(now.getMonth()+1).padStart(2,"0");
+
+    const year =
+    now.getFullYear();
+
+    return `${day}-${month}-${year}`;
+}
+
+
+function getTodayKey(){
+
+    const now = new Date();
+
+    return (
+        now.getFullYear()
+        + "-"
+        + String(now.getMonth()+1).padStart(2,"0")
+        + "-"
+        + String(now.getDate()).padStart(2,"0")
+    );
+}
+
+
+/* ==============================
+   TIME FUNCTIONS
+============================== */
+
+function timeToMinutes(time){
+
+    if(!time) return null;
+
+    const clean =
+    String(time).split(" ")[0];
+
+    const parts =
+    clean.split(":");
+
+    if(parts.length !== 2){
+        return null;
+    }
+
+    const hours =
+    Number(parts[0]);
+
+    const minutes =
+    Number(parts[1]);
+
+    if(
+      Number.isNaN(hours) ||
+      Number.isNaN(minutes)
+    ){
+        return null;
+    }
+
+    return hours * 60 + minutes;
+}
+
+
+function formatTime(time){
+
+    const total =
+    timeToMinutes(time);
+
+    if(total === null){
+        return "—";
+    }
+
+    let hours =
+    Math.floor(total / 60);
+
+    const minutes =
+    total % 60;
+
+    const ampm =
+    hours >= 12 ? "PM" : "AM";
+
+    hours =
+    hours % 12 || 12;
+
+    return (
+        hours
+        + ":"
+        + String(minutes).padStart(2,"0")
+        + " "
+        + ampm
+    );
+}
+
+
+/* ==============================
+   LOAD PRAYER TIMES
+============================== */
+
+async function loadPrayerTimes(latitude, longitude){
+
+    locationStatus.innerHTML =
+    "⏳ Shia prayer timings load ho rahi hain...";
+
+    const date =
+    getApiDate();
+
+    /*
+      AlAdhan Method 7:
+      Shia Ithna-Ashari
+      Leva Institute, Qum
+    */
+
+    const apiUrl =
+    "https://api.aladhan.com/v1/timings/"
+    + date
+    + "?latitude="
+    + encodeURIComponent(latitude)
+    + "&longitude="
+    + encodeURIComponent(longitude)
+    + "&method=7";
+
+    try{
+
+        const response =
+        await fetch(
+            apiUrl,
+            {
+                cache:"no-store"
+            }
+        );
+
+        if(!response.ok){
+
+            throw new Error(
+                "Prayer API error: "
+                + response.status
+            );
+
+        }
+
+        const result =
+        await response.json();
+
+        if(
+            result.code !== 200 ||
+            !result.data ||
+            !result.data.timings
+        ){
+
+            throw new Error(
+                "Invalid prayer data"
+            );
+
+        }
+
+        prayerTimes =
+        result.data.timings;
+
+
+        renderPrayerTimes();
+
+
+        const readableDate =
+        result.data.date?.readable
+        || date;
+
+
+        const timezone =
+        result.data.meta?.timezone
+        || "Local Time";
+
+
+        dateText.textContent =
+        readableDate
+        + " • "
+        + timezone;
+
+
+        locationStatus.innerHTML =
+        '<span class="success">✓ Location access successful.</span>';
+
+
+        locationInfo.innerHTML =
+        "Latitude: "
+        + latitude.toFixed(5)
+        + "<br>Longitude: "
+        + longitude.toFixed(5);
+
+
+        updateNextPrayer();
+
+
+    }catch(error){
+
+        console.error(error);
+
+        locationStatus.innerHTML =
+        '<span class="error">' +
+        "Prayer timings load nahi ho pa rahi. " +
+        "Internet check karke dobara Location allow karein." +
+        "</span>";
+
+    }
+
+}
+
+
+/* ==============================
+   DISPLAY PRAYER TIMES
+============================== */
+
+function renderPrayerTimes(){
+
+    if(!prayerTimes){
+        return;
+    }
+
+
+    const prayers = [
+
+        ["Fajr","Fajr"],
+
+        ["Sunrise","Sunrise"],
+
+        ["Dhuhr","Dhuhr"],
+
+        ["Asr","Asr"],
+
+        ["Maghrib","Maghrib"],
+
+        ["Isha","Isha"]
+
+    ];
+
+
+    prayerList.innerHTML =
+    prayers.map(function(item){
+
+        const name =
+        item[0];
+
+        const key =
+        item[1];
+
+        return `
+
+        <div class="prayer-row">
+
+            <span class="prayer-name">
+                ${name}
+            </span>
+
+            <span class="prayer-time">
+                ${formatTime(prayerTimes[key])}
+            </span>
+
+        </div>
+
+        `;
+
+    }).join("");
+
+}
+
+
+/* ==============================
+   NEXT AZAAN
+============================== */
+
+function updateNextPrayer(){
+
+    if(!prayerTimes){
+        return;
+    }
+
+
+    const now =
+    new Date();
+
+
+    const currentSeconds =
+    now.getHours() * 3600
+    + now.getMinutes() * 60
+    + now.getSeconds();
+
+
+    const prayers = [
+
+        ["Fajr","Fajr"],
+
+        ["Dhuhr","Dhuhr"],
+
+        ["Asr","Asr"],
+
+        ["Maghrib","Maghrib"],
+
+        ["Isha","Isha"]
+
+    ];
+
+
+    let upcoming = null;
+
+
+    for(
+        const prayer
+        of prayers
+    ){
+
+        const minutes =
+        timeToMinutes(
+            prayerTimes[prayer[1]]
+        );
+
+
+        if(
+            minutes !== null &&
+            minutes * 60 > currentSeconds
+        ){
+
+            upcoming = {
+
+                name: prayer[0],
+
+                key: prayer[1],
+
+                seconds: minutes * 60
+
+            };
+
+            break;
+
+        }
+
+    }
+
+
+    if(!upcoming){
+
+        nextPrayer.textContent =
+        "Fajr tomorrow • "
+        + formatTime(prayerTimes.Fajr);
+
+        nextCountdown.textContent =
+        "Today's prayers complete.";
+
+        return;
+
+    }
+
+
+    const difference =
+    upcoming.seconds
+    - currentSeconds;
+
+
+    const hours =
+    Math.floor(
+        difference / 3600
+    );
+
+
+    const minutes =
+    Math.floor(
+        (difference % 3600) / 60
+    );
+
+
+    const seconds =
+    difference % 60;
+
+
+    nextPrayer.textContent =
+    upcoming.name
+    + " • "
+    + formatTime(
+        prayerTimes[upcoming.key]
+    );
+
+
+    nextCountdown.textContent =
+    "Azaan in "
+    + hours
+    + "h "
+    + minutes
+    + "m "
+    + seconds
+    + "s";
+
+}
+
+
+/* ==============================
+   LOCATION
+============================== */
+
+function requestLocation(){
+
+    if(!navigator.geolocation){
+
+        locationStatus.innerHTML =
+        '<span class="error">' +
+        "Your browser does not support location." +
+        "</span>";
+
+        return;
+    }
+
+
+    locationStatus.textContent =
+    "📍 Location permission request ho rahi hai...";
+
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position){
+
+            const latitude =
+            position.coords.latitude;
+
+            const longitude =
+            position.coords.longitude;
+
+
+            loadPrayerTimes(
+                latitude,
+                longitude
+            );
+
+        },
+
+        function(error){
+
+            console.error(error);
+
+
+            let message =
+            "Location permission nahi mili.";
+
+
+            if(error.code === 1){
+
+                message =
+                "Location permission denied. Browser settings mein Location allow karein.";
+
+            }
+
+            else if(error.code === 2){
+
+                message =
+                "Location unavailable. GPS/Internet check karein.";
+
+            }
+
+            else if(error.code === 3){
+
+                message =
+                "Location request timeout ho gayi. Dobara try karein.";
+
+            }
+
+
+            locationStatus.innerHTML =
+            '<span class="warning">' +
+            message +
+            "</span>";
+
+        },
+
+        {
+            enableHighAccuracy:true,
+
+            timeout:15000,
+
+            maximumAge:300000
+
+        }
+
+    );
+
+}
+
+
+/* ==============================
+   ALLOW LOCATION BUTTON
+============================== */
+
+locationButton.addEventListener(
+    "click",
+    requestLocation
+);
+
+
+/* ==============================
+   ALLOW AZAAN
+============================== */
+
+enableAzaan.addEventListener(
+    "click",
+    async function(){
+
+        try{
+
+            /*
+              User interaction ke thro<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Prayer Time • ShiaSphere</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  background:#03120f;
+  color:#f5f5f5;
+  font-family:Arial,sans-serif;
+}
+
+.prayer-page{
+  max-width:850px;
+  margin:auto;
+  padding:20px;
+  padding-bottom:40px;
+}
+
+.back-btn{
+  display:inline-block;
+  text-decoration:none;
+  color:#fff;
+  background:#123d35;
+  border:1px solid #8d7b35;
+  padding:10px 16px;
+  border-radius:12px;
+  margin-bottom:20px;
+}
+
+h1{
+  text-align:center;
+  margin:10px 0 5px;
+  color:#d7bd55;
+}
+
+.subtitle{
+  text-align:center;
+  color:#b9c8c3;
+  margin-bottom:25px;
+}
+
+.box{
+  background:#0b2822;
+  border:1px solid #6e6738;
+  border-radius:24px;
+  padding:20px;
+  margin-bottom:18px;
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+
+.box h2{
+  margin-top:0;
+  color:#d7bd55;
+}
+
+.status{
+  color:#c8d3cf;
+  line-height:1.6;
+}
+
+button{
+  border:none;
+  border-radius:14px;
+  padding:13px 18px;
+  margin:6px 5px 6px 0;
+  font-size:15px;
+  font-weight:bold;
+  cursor:pointer;
+  background:#155247;
+  color:white;
+  border:1px solid #a18d3b;
+}
+
+button:hover{
+  opacity:.9;
+}
+
+.success{
+  color:#70e6ad;
+}
+
+.warning{
+  color:#ffca70;
+}
+
+.error{
+  color:#ff7777;
+}
+
+.prayer-list{
+  margin-top:15px;
+}
+
+.prayer-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px;
+  margin:8px 0;
+  background:#071c18;
+  border:1px solid #29473f;
+  border-radius:15px;
+}
+
+.prayer-name{
+  font-weight:bold;
+  font-size:17px;
+}
+
+.prayer-time{
+  color:#e0c65d;
+  font-weight:bold;
+  font-size:17px;
+}
+
+.next-box{
+  margin-top:18px;
+  text-align:center;
+  background:linear-gradient(135deg,#123e35,#09221d);
+  border:1px solid #a18d3b;
+  border-radius:20px;
+  padding:20px;
+}
+
+.next-title{
+  color:#bfcac6;
+}
+
+.next-name{
+  color:#e0c65d;
+  font-size:22px;
+  font-weight:bold;
+  margin:8px 0;
+}
+
+.countdown{
+  font-size:18px;
+  color:#fff;
+}
+
+.small{
+  font-size:13px;
+  color:#9eafaa;
+  line-height:1.6;
+}
+
+audio{
+  width:100%;
+  margin-top:10px;
+}
+
+.location-name{
+  color:#e0c65d;
+  font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<main class="prayer-page">
+
+<a href="index.html" class="back-btn">← Home</a>
+
+<h1>🕌 Prayer Time</h1>
+
+<p class="subtitle">
+Shia Ithna-Ashari • Live Local Namaz Timings
+</p>
+
+
+<!-- LOCATION -->
+<section class="box">
+
+<h2>📍 Location Access</h2>
+
+<p id="locationStatus" class="status">
+Location permission dene ke liye neeche button dabayein.
+</p>
+
+<button id="locationButton">
+📍 Allow Location
+</button>
+
+<p id="locationInfo" class="small"></p>
+
+</section>
+
+
+<!-- PRAYER TIMES -->
+<section class="box">
+
+<h2>🕐 Today's Namaz & Azaan Time</h2>
+
+<p id="dateText" class="status">
+Location ka wait ho raha hai...
+</p>
+
+<div id="prayerList" class="prayer-list">
+
+<div class="prayer-row">
+<span class="prayer-name">Fajr</span>
+<span class="prayer-time">—</span>
+</div>
+
+<div class="prayer-row">
+<span class="prayer-name">Sunrise</span>
+<span class="prayer-time">—</span>
+</div>
+
+<div class="prayer-row">
+<span class="prayer-name">Dhuhr</span>
+<span class="prayer-time">—</span>
+</div>
+
+<div class="prayer-row">
+<span class="prayer-name">Asr</span>
+<span class="prayer-time">—</span>
+</div>
+
+<div class="prayer-row">
+<span class="prayer-name">Maghrib</span>
+<span class="prayer-time">—</span>
+</div>
+
+<div class="prayer-row">
+<span class="prayer-name">Isha</span>
+<span class="prayer-time">—</span>
+</div>
+
+</div>
+
+
+<div class="next-box">
+
+<div class="next-title">
+🔊 Next Azaan
+</div>
+
+<div id="nextPrayer" class="next-name">
+—
+</div>
+
+<div id="nextCountdown" class="countdown">
+Countdown: —
+</div>
+
+</div>
+
+</section>
+
+
+<!-- AZAAN -->
+<section class="box">
+
+<h2>🔊 Shia Azaan</h2>
+
+<p class="status">
+Location access ke baad exact prayer/Azaan timings upar show hongi.
+Automatic Azaan ke liye pehle <b>Allow Azaan</b> dabana zaroori hai.
+</p>
+
+<button id="enableAzaan">
+🔊 Allow Azaan
+</button>
+
+<button id="testAzaan">
+▶ Test Azaan
+</button>
+
+<p id="audioStatus" class="status">
+Azaan disabled.
+</p>
+
+<audio id="azaanAudio" preload="auto" controls>
+<source src="shia_azan.mp3" type="audio/mpeg">
+Your browser does not support audio.
+</audio>
+
+<p class="small">
+Automatic Azaan ke liye page/tab ko open rakhein. Browser ya phone
+background mein audio ko block kar sakta hai.
+</p>
+
+</section>
+
+</main>
+
+
+<script>
+
+/* ==============================
+   ELEMENTS
+============================== */
+
+const locationStatus =
+document.getElementById("locationStatus");
+
+const locationButton =
+document.getElementById("locationButton");
+
+const locationInfo =
+document.getElementById("locationInfo");
+
+const dateText =
+document.getElementById("dateText");
+
+const prayerList =
+document.getElementById("prayerList");
+
+const nextPrayer =
+document.getElementById("nextPrayer");
+
+const nextCountdown =
+document.getElementById("nextCountdown");
+
+const enableAzaan =
+document.getElementById("enableAzaan");
+
+const testAzaan =
+document.getElementById("testAzaan");
+
+const audioStatus =
+document.getElementById("audioStatus");
+
+const audio =
+document.getElementById("azaanAudio");
+
+
+/* ==============================
+   VARIABLES
+============================== */
+
+let prayerTimes = null;
+
+let azaanEnabled = false;
+
+let playedAzaan = {};
+
+
+/* ==============================
+   DATE
+============================== */
+
+function getApiDate(){
+
+    const now = new Date();
+
+    const day =
+    String(now.getDate()).padStart(2,"0");
+
+    const month =
+    String(now.getMonth()+1).padStart(2,"0");
+
+    const year =
+    now.getFullYear();
+
+    return `${day}-${month}-${year}`;
+}
+
+
+function getTodayKey(){
+
+    const now = new Date();
+
+    return (
+        now.getFullYear()
+        + "-"
+        + String(now.getMonth()+1).padStart(2,"0")
+        + "-"
+        + String(now.getDate()).padStart(2,"0")
+    );
+}
+
+
+/* ==============================
+   TIME FUNCTIONS
+============================== */
+
+function timeToMinutes(time){
+
+    if(!time) return null;
+
+    const clean =
+    String(time).split(" ")[0];
+
+    const parts =
+    clean.split(":");
+
+    if(parts.length !== 2){
+        return null;
+    }
+
+    const hours =
+    Number(parts[0]);
+
+    const minutes =
+    Number(parts[1]);
+
+    if(
+      Number.isNaN(hours) ||
+      Number.isNaN(minutes)
+    ){
+        return null;
+    }
+
+    return hours * 60 + minutes;
+}
+
+
+function formatTime(time){
+
+    const total =
+    timeToMinutes(time);
+
+    if(total === null){
+        return "—";
+    }
+
+    let hours =
+    Math.floor(total / 60);
+
+    const minutes =
+    total % 60;
+
+    const ampm =
+    hours >= 12 ? "PM" : "AM";
+
+    hours =
+    hours % 12 || 12;
+
+    return (
+        hours
+        + ":"
+        + String(minutes).padStart(2,"0")
+        + " "
+        + ampm
+    );
+}
+
+
+/* ==============================
+   LOAD PRAYER TIMES
+============================== */
+
+async function loadPrayerTimes(latitude, longitude){
+
+    locationStatus.innerHTML =
+    "⏳ Shia prayer timings load ho rahi hain...";
+
+    const date =
+    getApiDate();
+
+    /*
+      AlAdhan Method 7:
+      Shia Ithna-Ashari
+      Leva Institute, Qum
+    */
+
+    const apiUrl =
+    "https://api.aladhan.com/v1/timings/"
+    + date
+    + "?latitude="
+    + encodeURIComponent(latitude)
+    + "&longitude="
+    + encodeURIComponent(longitude)
+    + "&method=7";
+
+    try{
+
+        const response =
+        await fetch(
+            apiUrl,
+            {
+                cache:"no-store"
+            }
+        );
+
+        if(!response.ok){
+
+            throw new Error(
+                "Prayer API error: "
+                + response.status
+            );
+
+        }
+
+        const result =
+        await response.json();
+
+        if(
+            result.code !== 200 ||
+            !result.data ||
+            !result.data.timings
+        ){
+
+            throw new Error(
+                "Invalid prayer data"
+            );
+
+        }
+
+        prayerTimes =
+        result.data.timings;
+
+
+        renderPrayerTimes();
+
+
+        const readableDate =
+        result.data.date?.readable
+        || date;
+
+
+        const timezone =
+        result.data.meta?.timezone
+        || "Local Time";
+
+
+        dateText.textContent =
+        readableDate
+        + " • "
+        + timezone;
+
+
+        locationStatus.innerHTML =
+        '<span class="success">✓ Location access successful.</span>';
+
+
+        locationInfo.innerHTML =
+        "Latitude: "
+        + latitude.toFixed(5)
+        + "<br>Longitude: "
+        + longitude.toFixed(5);
+
+
+        updateNextPrayer();
+
+
+    }catch(error){
+
+        console.error(error);
+
+        locationStatus.innerHTML =
+        '<span class="error">' +
+        "Prayer timings load nahi ho pa rahi. " +
+        "Internet check karke dobara Location allow karein." +
+        "</span>";
+
+    }
+
+}
+
+
+/* ==============================
+   DISPLAY PRAYER TIMES
+============================== */
+
+function renderPrayerTimes(){
+
+    if(!prayerTimes){
+        return;
+    }
+
+
+    const prayers = [
+
+        ["Fajr","Fajr"],
+
+        ["Sunrise","Sunrise"],
+
+        ["Dhuhr","Dhuhr"],
+
+        ["Asr","Asr"],
+
+        ["Maghrib","Maghrib"],
+
+        ["Isha","Isha"]
+
+    ];
+
+
+    prayerList.innerHTML =
+    prayers.map(function(item){
+
+        const name =
+        item[0];
+
+        const key =
+        item[1];
+
+        return `
+
+        <div class="prayer-row">
+
+            <span class="prayer-name">
+                ${name}
+            </span>
+
+            <span class="prayer-time">
+                ${formatTime(prayerTimes[key])}
+            </span>
+
+        </div>
+
+        `;
+
+    }).join("");
+
+}
+
+
+/* ==============================
+   NEXT AZAAN
+============================== */
+
+function updateNextPrayer(){
+
+    if(!prayerTimes){
+        return;
+    }
+
+
+    const now =
+    new Date();
+
+
+    const currentSeconds =
+    now.getHours() * 3600
+    + now.getMinutes() * 60
+    + now.getSeconds();
+
+
+    const prayers = [
+
+        ["Fajr","Fajr"],
+
+        ["Dhuhr","Dhuhr"],
+
+        ["Asr","Asr"],
+
+        ["Maghrib","Maghrib"],
+
+        ["Isha","Isha"]
+
+    ];
+
+
+    let upcoming = null;
+
+
+    for(
+        const prayer
+        of prayers
+    ){
+
+        const minutes =
+        timeToMinutes(
+            prayerTimes[prayer[1]]
+        );
+
+
+        if(
+            minutes !== null &&
+            minutes * 60 > currentSeconds
+        ){
+
+            upcoming = {
+
+                name: prayer[0],
+
+                key: prayer[1],
+
+                seconds: minutes * 60
+
+            };
+
+            break;
+
+        }
+
+    }
+
+
+    if(!upcoming){
+
+        nextPrayer.textContent =
+        "Fajr tomorrow • "
+        + formatTime(prayerTimes.Fajr);
+
+        nextCountdown.textContent =
+        "Today's prayers complete.";
+
+        return;
+
+    }
+
+
+    const difference =
+    upcoming.seconds
+    - currentSeconds;
+
+
+    const hours =
+    Math.floor(
+        difference / 3600
+    );
+
+
+    const minutes =
+    Math.floor(
+        (difference % 3600) / 60
+    );
+
+
+    const seconds =
+    difference % 60;
+
+
+    nextPrayer.textContent =
+    upcoming.name
+    + " • "
+    + formatTime(
+        prayerTimes[upcoming.key]
+    );
+
+
+    nextCountdown.textContent =
+    "Azaan in "
+    + hours
+    + "h "
+    + minutes
+    + "m "
+    + seconds
+    + "s";
+
+}
+
+
+/* ==============================
+   LOCATION
+============================== */
+
+function requestLocation(){
+
+    if(!navigator.geolocation){
+
+        locationStatus.innerHTML =
+        '<span class="error">' +
+        "Your browser does not support location." +
+        "</span>";
+
+        return;
+    }
+
+
+    locationStatus.textContent =
+    "📍 Location permission request ho rahi hai...";
+
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position){
+
+            const latitude =
+            position.coords.latitude;
+
+            const longitude =
+            position.coords.longitude;
+
+
+            loadPrayerTimes(
+                latitude,
+                longitude
+            );
+
+        },
+
+        function(error){
+
+            console.error(error);
+
+
+            let message =
+            "Location permission nahi mili.";
+
+
+            if(error.code === 1){
+
+                message =
+                "Location permission denied. Browser settings mein Location allow karein.";
+
+            }
+
+            else if(error.code === 2){
+
+                message =
+                "Location unavailable. GPS/Internet check karein.";
+
+            }
+
+            else if(error.code === 3){
+
+                message =
+                "Location request timeout ho gayi. Dobara try karein.";
+
+            }
+
+
+            locationStatus.innerHTML =
+            '<span class="warning">' +
+            message +
+            "</span>";
+
+        },
+
+        {
+            enableHighAccuracy:true,
+
+            timeout:15000,
+
+            maximumAge:300000
+
+        }
+
+    );
+
+}
+
+
+/* ==============================
+   ALLOW LOCATION BUTTON
+============================== */
+
+locationButton.addEventListener(
+    "click",
+    requestLocation
+);
+
+
+/* ==============================
+   ALLOW AZAAN
+============================== */
+
+enableAzaan.addEventListener(
+    "click",
+    async function(){
+
+        try{
+
+            /*
+              User interaction ke through
+              audio permission unlock karne ki koshish
+            */
+
+            audio.muted = true;
+
+            await audio.play();
+
+            audio.pause();
+
+            audio.currentTime = 0;
+
+            audio.muted = false;
+
+
+            azaanEnabled = true;
+
+
+            audioStatus.innerHTML =
+            '<span class="success">' +
+            "✓ Azaan enabled. Page open rakhein." +
+            "</span>";
+
+
+        }catch(error){
+
+            console.error(error);
+
+
+            audioStatus.innerHTML =
+            '<span class="warning">' +
+            "Browser ne audio allow nahi kiya. " +
+            "Pehle Test Azaan dabakar permission check karein." +
+            "</span>";
+
+        }
+
+    }
+);
+
+
+/* ==============================
+   TEST AZAAN
+============================== */
+
+testAzaan.addEventListener(
+    "click",
+    async function(){
+
+        try{
+
+            audio.currentTime = 0;
+
+            await audio.play();
+
+
+            azaanEnabled = true;
+
+
+            audioStatus.innerHTML =
+            '<span class="success">' +
+            "✓ Azaan test playing." +
+            "</span>";
+
+
+        }catch(error){
+
+            console.error(error);
+
+
+            audioStatus.innerHTML =
+            '<span class="error">' +
+            "shia_azan.mp3 nahi mili. " +
+            "MP3 ko prayer-time.html ke same folder mein upload karein." +
+            "</span>";
+
+        }
+
+    }
+);
+
+
+/* ==============================
+   AUTOMATIC AZAAN
+============================== */
+
+function checkAzaan(){
+
+    if(
+        !azaanEnabled ||
+        !prayerTimes
+    ){
+
+        return;
+
+    }
+
+
+    const now =
+    new Date();
+
+
+    const currentTime =
+    String(
+        now.getHours()
+    ).padStart(2,"0")
+    + ":"
+    + String(
+        now.getMinutes()
+    ).padStart(2,"0");
+
+
+    const today =
+    getTodayKey();
+
+
+    const prayers = [
+
+        "Fajr",
+
+        "Dhuhr",
+
+        "Asr",
+
+        "Maghrib",
+
+        "Isha"
+
+    ];
+
+
+    prayers.forEach(
+        function(prayer){
+
+            const prayerTime =
+            String(
+                prayerTimes[prayer]
+            ).split(" ")[0];
+
+
+            const uniqueKey =
+            today
+            + "-"
+            + prayer;
+
+
+            if(
+                prayerTime === currentTime &&
+                !playedAzaan[uniqueKey]
+            ){
+
+                playedAzaan[uniqueKey] =
+                true;
+
+
+                audio.currentTime = 0;
+
+
+                audio.play()
+                .then(function(){
+
+                    audioStatus.innerHTML =
+                    '<span class="success">' +
+                    "🔊 "
+                    + prayer
+                    + " Azaan is playing." +
+                    "</span>";
+
+                })
+                .catch(function(error){
+
+                    console.error(error);
+
+
+                    audioStatus.innerHTML =
+                    '<span class="warning">' +
+                    "Automatic audio browser ne block kiya. " +
+                    "Page open rakhein aur Azaan enable karein." +
+                    "</span>";
+
+                });
+
+            }
+
+        }
+    );
+
+}
+
+
+/* ==============================
+   LIVE UPDATES
+============================== */
+
+setInterval(
+    updateNextPrayer,
+    1000
+);
+
+
+setInterval(
+    checkAzaan,
+    1000
+);
+
+
+/*
+  IMPORTANT:
+  Location automatically request nahi hogi.
+  User ko Allow Location button dabana hoga.
+*/
+
+</script>
+
+</body>
+</html>￼Enterugh
+              audio permission unlock karne ki koshish
+            */
+
+            audio.muted = true;
+
+            await audio.play();
+       audio.pause();
+
+            audio.currentTime = 0;
+
+            audio.muted = false;
+
+
+            azaanEnabled = true;
+
+
+            audioStatus.innerHTML =
+            '<span class="success">' +
+            "✓ Azaan enabled. Page open rakhein." +
+            "</span>";
+
+
+        }catch(error){
+
+            console.error(error);
+
+
+            audioStatus.innerHTML =
+            '<span class="warning">' +
+            "Browser ne audio allow nahi kiya. " +
+            "Pehle Test Azaan dabakar permission check karein." +
+            "</span>";
+
+        }
+
+    }
+);
+
+
+/* ==============================
+   TEST AZAAN
+============================== */
+
+testAzaan.addEventListener(
+    "click",
+    async function(){
+
+        try{
+
+            audio.currentTime = 0;
+
+            await audio.play();
+
+
+            azaanEnabled = true;
+
+
+            audioStatus.innerHTML =
+            '<span class="success">' +
+            "✓ Azaan test playing." +
+            "</span>";
+
+
+        }catch(error){
+
+            console.error(error);
+
+
+            audioStatus.innerHTML =
+            '<span class="error">' +
+            "shia_azan.mp3 nahi mili. " +
+            "MP3 ko prayer-time.html ke same folder mein upload karein." +
+            "</span>";
+
+        }
+
+    }
+);
+
+
+/* ==============================
+   AUTOMATIC AZAAN
+============================== */
+
+function checkAzaan(){
+
+    if(
+        !azaanEnabled ||
+        !prayerTimes
+    ){
+
+        return;
+
+    }
+
+
+    const now =
+    new Date();
+
+
+    const currentTime =
+    String(
+        now.getHours()
+    ).padStart(2,"0")
+    + ":"
+    + String(
+        now.getMinutes()
+    ).padStart(2,"0");
+
